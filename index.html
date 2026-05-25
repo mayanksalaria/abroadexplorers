@@ -100,15 +100,16 @@
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Continuous Moving Ribbon Animation */
+        /* Accelerated Stutter-Free Moving Ribbon Animation */
         @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
         }
         .animate-marquee-continuous {
             display: flex;
             width: max-content;
-            animation: marquee 30s linear infinite;
+            animation: marquee 25s linear infinite;
+            will-change: transform;
         }
         .animate-marquee-continuous:hover {
             animation-play-state: paused;
@@ -142,17 +143,17 @@
 <header class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm transition-all duration-300">
     <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-3.5 max-w-container-max mx-auto">
         
-        <a href="#home" class="flex items-center gap-2 z-50 group">
-            <div class="transition-transform duration-300 group-hover:rotate-12">
-                <svg class="h-10 w-auto" viewBox="0 0 54 60" xmlns="http://www.w3.org/2000/svg">
+        <a href="#home" class="flex items-center gap-2 z-50 group shrink-0">
+            <div class="transition-transform duration-300 group-hover:rotate-12 shrink-0">
+                <svg class="h-9 w-auto md:h-10" viewBox="0 0 54 60" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="27" cy="30" r="22" fill="#131b2e"/>
                     <path d="M27 15 L39 40 L15 40 Z" fill="#fdc425"/>
                     <circle cx="27" cy="30" r="18" fill="none" stroke="white" stroke-width="2"/>
                 </svg>
             </div>
-            <div class="flex flex-col md:flex-row md:items-baseline md:gap-1">
-                <span class="font-bold text-[22px] font-['Montserrat'] tracking-tight text-primary-container">Abroad</span>
-                <span class="font-light text-[22px] font-['Montserrat'] tracking-tight text-primary-container md:text-secondary-container md:font-semibold">Explorers</span>
+            <div class="flex items-baseline gap-1 whitespace-nowrap">
+                <span class="font-bold text-[19px] md:text-[22px] font-['Montserrat'] tracking-tight text-primary-container">Abroad</span>
+                <span class="font-semibold text-[19px] md:text-[22px] font-['Montserrat'] tracking-tight text-secondary-container">Explorers</span>
             </div>
         </a>
 
@@ -163,7 +164,7 @@
             <a href="#contact" class="font-label-md text-on-surface font-semibold hover:text-secondary-container transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-secondary-container hover:after:w-full after:transition-all">Contact</a>
         </nav>
 
-        <div class="flex items-center gap-4 z-50">
+        <div class="flex items-center gap-2 md:gap-4 z-50">
             <a href="tel:09018374849" class="hidden lg:flex items-center gap-2 font-label-md text-primary-container font-bold bg-surface-container-high hover:bg-surface-container transition-all px-4 py-2 rounded-lg">
                 <span class="material-symbols-outlined text-[18px]">call</span>
                 09018374849
@@ -173,139 +174,141 @@
                 Free Consultation
             </a>
             
-            <button id="menu-toggle" class="md:hidden p-2.5 text-white bg-primary-container rounded-xl shadow-md transition-all active:scale-95" aria-label="Toggle navigation menu">
-                <span class="material-symbols-outlined block" id="menu-icon">menu</span>
+            <button id="menu-toggle" class="md:hidden p-2 text-white bg-primary-container rounded-xl shadow-md transition-all active:scale-95 flex items-center justify-center" aria-label="Toggle navigation menu">
+                <span class="material-symbols-outlined block text-[24px]" id="menu-icon">menu</span>
             </button>
         </div>
     </div>
 </header>
 
-<div id="mobile-menu" class="fixed inset-x-0 top-0 bg-surface/98 backdrop-blur-2xl z-40 flex flex-col items-center gap-6 pt-28 pb-10 shadow-2xl border-b border-outline-variant rounded-b-3xl">
-    <a href="#home" class="mobile-link text-xl font-bold text-primary-container hover:text-secondary-container transition-colors">Home</a>
-    <a href="#services" class="mobile-link text-xl font-bold text-primary-container hover:text-secondary-container transition-colors">Premium Services</a>
-    <a href="#reviews" class="mobile-link text-xl font-bold text-primary-container hover:text-secondary-container transition-colors">Client Reviews</a>
-    <a href="#contact" class="mobile-link text-xl font-bold text-primary-container hover:text-secondary-container transition-colors">Visit Office</a>
+<div id="mobile-menu" class="fixed inset-x-0 top-0 bg-surface/98 backdrop-blur-2xl z-40 flex flex-col items-center gap-5 pt-24 pb-8 shadow-2xl border-b border-outline-variant rounded-b-3xl max-h-[90vh] overflow-y-auto">
+    <a href="#home" class="mobile-link text-lg font-bold text-primary-container hover:text-secondary-container transition-colors">Home</a>
+    <a href="#services" class="mobile-link text-lg font-bold text-primary-container hover:text-secondary-container transition-colors">Premium Services</a>
+    <a href="#reviews" class="mobile-link text-lg font-bold text-primary-container hover:text-secondary-container transition-colors">Client Reviews</a>
+    <a href="#contact" class="mobile-link text-lg font-bold text-primary-container hover:text-secondary-container transition-colors">Visit Office</a>
     
-    <div class="h-[1px] w-4/5 bg-outline-variant/40 my-2"></div>
+    <div class="h-[1px] w-4/5 bg-outline-variant/40 my-1"></div>
     
-    <div class="flex flex-col gap-3.5 w-[85%]">
-        <a href="https://wa.me/09018374849" target="_blank" class="bg-[#25D366] text-white text-center font-bold py-3.5 rounded-xl shadow-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
-            <span class="material-symbols-outlined">chat</span> Chat via WhatsApp
+    <div class="flex flex-col gap-3 w-[85%] pb-4">
+        <a href="https://wa.me/09018374849" target="_blank" class="bg-[#25D366] text-white text-center font-bold py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 active:scale-95 transition-transform text-sm">
+            <span class="material-symbols-outlined text-[20px]">chat</span> Chat via WhatsApp
         </a>
-        <a href="tel:09018374849" class="bg-primary-container text-on-primary text-center font-bold py-3.5 rounded-xl shadow-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
-            <span class="material-symbols-outlined">call</span> Call Consultant Directly
+        <a href="tel:09018374849" class="bg-primary-container text-on-primary text-center font-bold py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 active:scale-95 transition-transform text-sm">
+            <span class="material-symbols-outlined text-[20px]">call</span> Call Consultant Directly
         </a>
     </div>
 </div>
 
 <main class="pt-16 overflow-x-hidden">
-    <section id="home" class="px-margin-mobile py-12 md:py-24 text-center max-w-container-max mx-auto relative">
+    <section id="home" class="px-margin-mobile py-10 md:py-24 text-center max-w-container-max mx-auto relative">
         <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-72 h-72 bg-secondary-container/20 rounded-full blur-[120px] pointer-events-none"></div>
         
-        <div class="inline-flex items-center gap-3 mb-6 bg-surface-container-high/70 backdrop-blur-md rounded-full px-5 py-1.5 border border-outline-variant/30 text-sm font-semibold tracking-wide text-primary-container float-element">
-            <span class="text-xl">🇺🇸 🇬🇧 🇨🇦 🇩🇪 🇮🇪 🇦🇺</span>
-            <span>Top Global Admissions Open</span>
+        <div class="inline-flex items-center gap-2 mb-6 bg-surface-container-high/70 backdrop-blur-md rounded-full px-4 py-1.5 border border-outline-variant/30 text-xs md:text-sm font-semibold tracking-wide text-primary-container float-element max-w-full">
+            <span class="text-base md:text-xl shrink-0">🇺🇸 🇬🇧 🇨🇦 🇩🇪 🇮🇪 🇦🇺</span>
+            <span class="truncate">Top Global Admissions Open</span>
         </div>
         
-        <h1 class="font-display-lg-mobile text-[36px] md:text-[56px] font-bold text-on-surface mb-6 leading-[1.15] tracking-tight max-w-4xl mx-auto">
+        <h1 class="text-[30px] sm:text-[36px] md:text-[56px] font-bold text-on-surface mb-5 leading-[1.2] tracking-tight max-w-4xl mx-auto break-words px-1">
             Your Global Journey <span class="bg-gradient-to-r from-primary-container to-secondary-container bg-clip-text text-transparent">Starts Right Here</span>
         </h1>
         
-        <p class="font-body-lg text-base md:text-xl text-on-surface-variant max-w-2xl mx-auto mb-10 leading-relaxed">
-            Expert Visa &amp; University Admissions for premier worldwide destinations. We guide you transparently through every single step of your international transit.
+        <p class="font-body-lg text-sm md:text-xl text-on-surface-variant max-w-2xl mx-auto mb-8 leading-relaxed px-2">
+            Expert Visa & University Admissions for premier worldwide destinations. We guide you transparently through every single step of your international transit.
         </p>
         
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a class="w-full sm:w-auto bg-secondary-container text-on-secondary-container font-bold text-base md:text-lg px-8 py-4.5 rounded-xl shadow-[0_8px_20px_rgba(253,196,37,0.3)] hover:shadow-xl hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2.5" href="https://wa.me/09018374849" target="_blank">
-                <span class="material-symbols-outlined font-bold">rocket_launch</span>
+        <div class="flex flex-col sm:flex-row gap-3.5 justify-center items-center w-full max-w-md mx-auto sm:max-w-none px-2">
+            <a class="w-full sm:w-auto bg-secondary-container text-on-secondary-container font-bold text-sm md:text-lg px-6 py-3.5 md:py-4.5 rounded-xl shadow-[0_8px_20px_rgba(253,196,37,0.3)] hover:shadow-xl hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2.5" href="https://wa.me/09018374849" target="_blank">
+                <span class="material-symbols-outlined font-bold text-[20px]">rocket_launch</span>
                 Start Your Process Today
             </a>
-            <a class="w-full sm:w-auto bg-white border-2 border-primary-container text-primary-container font-bold text-base md:text-lg px-8 py-4 rounded-xl hover:bg-surface-container-low active:scale-95 transition-all flex items-center justify-center gap-2.5" href="tel:09018374849">
-                <span class="material-symbols-outlined">call</span>
+            <a class="w-full sm:w-auto bg-white border-2 border-primary-container text-primary-container font-bold text-sm md:text-lg px-6 py-3 md:py-4 rounded-xl hover:bg-surface-container-low active:scale-95 transition-all flex items-center justify-center gap-2.5" href="tel:09018374849">
+                <span class="material-symbols-outlined text-[20px]">call</span>
                 Call for Expert Advice
             </a>
         </div>
         
-        <div class="mt-12 flex flex-col sm:flex-row justify-center items-center gap-3 text-on-surface-variant font-medium">
-            <div class="flex text-secondary-container bg-primary-container/5 px-3 py-1 rounded-full">
-                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+        <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-2 text-on-surface-variant font-medium px-4">
+            <div class="flex text-secondary-container bg-primary-container/5 px-2.5 py-1 rounded-full shrink-0">
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
             </div>
-            <span class="text-sm md:text-base font-semibold text-primary-container">5.0 / 5.0 Rating based on verified Google Reviews</span>
+            <span class="text-xs md:text-base font-semibold text-primary-container text-center">5.0 / 5.0 Rating based on verified Google Reviews</span>
         </div>
     </section>
 
-    <section class="bg-primary-container py-5 overflow-hidden border-y border-secondary-container/20 shadow-md">
+    <section class="bg-primary-container py-4 overflow-hidden border-y border-secondary-container/20 shadow-md">
         <div class="animate-marquee-continuous flex items-center">
-            <div class="flex items-center gap-12 text-white font-bold tracking-wider text-sm uppercase px-6">
-                <span class="flex items-center gap-2"><span class="text-secondary-container">✔</span> 100+ Success Stories</span>
-                <span class="h-2 w-2 bg-secondary-container rounded-full"></span>
-                <span class="flex items-center gap-2"><span class="text-secondary-container">✔</span> Refreshingly Transparent Consultancy</span>
-                <span class="h-2 w-2 bg-secondary-container rounded-full"></span>
-                <span class="flex items-center gap-2"><span class="text-secondary-container">✔</span> Best In Class Services In Jammu</span>
-                <span class="h-2 w-2 bg-secondary-container rounded-full"></span>
-                <span class="flex items-center gap-2"><span class="text-secondary-container">✔</span> High Visa Acceptance Rates</span>
-                <span class="h-2 w-2 bg-secondary-container rounded-full"></span>
-                <span class="flex items-center gap-2"><span class="text-secondary-container">✔</span> Affordable & Simple Process</span>
+            <div class="flex items-center gap-8 md:gap-12 text-white font-bold tracking-wider text-xs md:text-sm uppercase whitespace-nowrap pr-8 md:pr-12">
+                <span class="flex items-center gap-2"><span class="text-secondary-container text-sm md:text-base">✔</span> 100+ Success Stories</span>
+                <span class="h-1.5 w-1.5 bg-secondary-container rounded-full shrink-0"></span>
+                <span class="flex items-center gap-2"><span class="text-secondary-container text-sm md:text-base">✔</span> Refreshingly Transparent Consultancy</span>
+                <span class="h-1.5 w-1.5 bg-secondary-container rounded-full shrink-0"></span>
+                <span class="flex items-center gap-2"><span class="text-secondary-container text-sm md:text-base">✔</span> Best In Class Services In Jammu</span>
+                <span class="h-1.5 w-1.5 bg-secondary-container rounded-full shrink-0"></span>
+                <span class="flex items-center gap-2"><span class="text-secondary-container text-sm md:text-base">✔</span> High Visa Acceptance Rates</span>
+                <span class="h-1.5 w-1.5 bg-secondary-container rounded-full shrink-0"></span>
+                <span class="flex items-center gap-2"><span class="text-secondary-container text-sm md:text-base">✔</span> Affordable & Simple Process</span>
             </div>
-            <div class="flex items-center gap-12 text-white font-bold tracking-wider text-sm uppercase px-6">
-                <span class="flex items-center gap-2"><span class="text-secondary-container">✔</span> 100+ Success Stories</span>
-                <span class="h-2 w-2 bg-secondary-container rounded-full"></span>
-                <span class="flex items-center gap-2"><span class="text-secondary-container">✔</span> Refreshingly Transparent Consultancy</span>
-                <span class="h-2 w-2 bg-secondary-container rounded-full"></span>
-                <span class="flex items-center gap-2"><span class="text-secondary-container">✔</span> Best In Class Services In Jammu</span>
-                <span class="h-2 w-2 bg-secondary-container rounded-full"></span>
-                <span class="flex items-center gap-2"><span class="text-secondary-container">✔</span> High Visa Acceptance Rates</span>
-                <span class="h-2 w-2 bg-secondary-container rounded-full"></span>
-                <span class="flex items-center gap-2"><span class="text-secondary-container">✔</span> Affordable & Simple Process</span>
+            <div class="flex items-center gap-8 md:gap-12 text-white font-bold tracking-wider text-xs md:text-sm uppercase whitespace-nowrap pr-8 md:pr-12">
+                <span class="flex items-center gap-2"><span class="text-secondary-container text-sm md:text-base">✔</span> 100+ Success Stories</span>
+                <span class="h-1.5 w-1.5 bg-secondary-container rounded-full shrink-0"></span>
+                <span class="flex items-center gap-2"><span class="text-secondary-container text-sm md:text-base">✔</span> Refreshingly Transparent Consultancy</span>
+                <span class="h-1.5 w-1.5 bg-secondary-container rounded-full shrink-0"></span>
+                <span class="flex items-center gap-2"><span class="text-secondary-container text-sm md:text-base">✔</span> Best In Class Services In Jammu</span>
+                <span class="h-1.5 w-1.5 bg-secondary-container rounded-full shrink-0"></span>
+                <span class="flex items-center gap-2"><span class="text-secondary-container text-sm md:text-base">✔</span> High Visa Acceptance Rates</span>
+                <span class="h-1.5 w-1.5 bg-secondary-container rounded-full shrink-0"></span>
+                <span class="flex items-center gap-2"><span class="text-secondary-container text-sm md:text-base">✔</span> Affordable & Simple Process</span>
             </div>
         </div>
     </section>
 
-    <section id="services" class="px-margin-mobile py-20 max-w-container-max mx-auto">
-        <div class="text-center mb-14">
-            <h2 class="font-headline-md text-3xl md:text-4xl font-bold mb-4 text-on-surface">Our Premium Core Services</h2>
-            <p class="text-on-surface-variant max-w-xl mx-auto text-base md:text-lg">Click on any core service tab below to review extensive processing details, targeted destinations, and conversion workflows.</p>
+    <section id="services" class="px-margin-mobile py-16 md:py-20 max-w-container-max mx-auto">
+        <div class="text-center mb-10 md:mb-14">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-on-surface">Our Premium Core Services</h2>
+            <p class="text-on-surface-variant max-w-xl mx-auto text-sm md:text-lg px-2">Click on any core service tab below to review extensive processing details, targeted destinations, and conversion workflows.</p>
         </div>
 
-        <div class="flex flex-wrap md:flex-nowrap justify-center gap-2 md:gap-4 max-w-3xl mx-auto mb-10 bg-surface-container p-2 rounded-2xl border border-outline-variant/60">
-            <button onclick="switchServiceTab('edu-tab')" id="btn-edu-tab" class="service-tab-btn flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold transition-all text-sm md:text-base bg-primary-container text-white shadow-md">
-                <span class="material-symbols-outlined text-[20px]">school</span> University Admissions
+        <div class="flex flex-col sm:flex-row justify-center gap-2 max-w-3xl mx-auto mb-8 bg-surface-container p-2 rounded-2xl border border-outline-variant/60">
+            <button onclick="switchServiceTab('edu-tab')" id="btn-edu-tab" class="service-tab-btn w-full sm:flex-1 flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-bold transition-all text-xs md:text-base bg-primary-container text-white shadow-md">
+                <span class="material-symbols-outlined text-[18px] md:text-[20px]">school</span> University Admissions
             </button>
-            <button onclick="switchServiceTab('visa-tab')" id="btn-visa-tab" class="service-tab-btn flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold transition-all text-sm md:text-base text-on-surface-variant hover:bg-surface-container-high">
-                <span class="material-symbols-outlined text-[20px]">description</span> Student &amp; Work Visas
+            <button onclick="switchServiceTab('visa-tab')" id="btn-visa-tab" class="service-tab-btn w-full sm:flex-1 flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-bold transition-all text-xs md:text-base text-on-surface-variant hover:bg-surface-container-high">
+                <span class="material-symbols-outlined text-[18px] md:text-[20px]">description</span> Student & Work Visas
             </button>
-            <button onclick="switchServiceTab('travel-tab')" id="btn-travel-tab" class="service-tab-btn flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold transition-all text-sm md:text-base text-on-surface-variant hover:bg-surface-container-high">
-                <span class="material-symbols-outlined text-[20px]">flight_takeoff</span> Travel Assistance
+            <button onclick="switchServiceTab('travel-tab')" id="btn-travel-tab" class="service-tab-btn w-full sm:flex-1 flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-bold transition-all text-xs md:text-base text-on-surface-variant hover:bg-surface-container-high">
+                <span class="material-symbols-outlined text-[18px] md:text-[20px]">flight_takeoff</span> Travel Assistance
             </button>
         </div>
 
-        <div class="bg-white rounded-3xl border border-outline-variant/60 shadow-xl p-6 md:p-12 transition-all max-w-5xl mx-auto">
+        <div class="bg-white rounded-2xl md:rounded-3xl border border-outline-variant/60 shadow-xl p-5 md:p-12 transition-all max-w-5xl mx-auto">
             
-            <div id="edu-tab" class="service-content-panel space-y-8">
-                <div class="flex flex-col lg:flex-row gap-8 items-center">
-                    <div class="space-y-4 flex-1">
-                        <div class="inline-block bg-surface-container text-primary-container font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-md">End-to-End Application Profiling</div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-primary-container">Global University Admissions Mapping</h3>
-                        <p class="text-on-surface-variant leading-relaxed">We provide direct, commission-free support focused on student preferences rather than arbitrary agency conversions. We make sure you fit perfectly into top worldwide courses matching your exact budget framework.</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                            <div class="flex items-center gap-2 text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-lg">✓</span> Profile Evaluation &amp; Screening</div>
-                            <div class="flex items-center gap-2 text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-lg">✓</span> Scholarship &amp; Grant Matching</div>
-                            <div class="flex items-center gap-2 text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-lg">✓</span> SOP &amp; Recommendation Guidance</div>
-                            <div class="flex items-center gap-2 text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-lg">✓</span> Affordable Course Direct Shortlisting</div>
+            <div id="edu-tab" class="service-content-panel space-y-6 md:space-y-8">
+                <div class="flex flex-col lg:flex-row gap-6 md:gap-8 items-stretch">
+                    <div class="space-y-4 flex-1 flex flex-col justify-center">
+                        <div class="self-start bg-surface-container text-primary-container font-bold text-[10px] md:text-xs uppercase tracking-widest px-3 py-1 rounded-md">End-to-End Application Profiling</div>
+                        <h3 class="text-xl md:text-3xl font-bold text-primary-container leading-tight">Global University Admissions Mapping</h3>
+                        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">We provide direct, commission-free support focused on student preferences rather than arbitrary agency conversions. We make sure you fit perfectly into top worldwide courses matching your exact budget framework.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+                            <div class="flex items-start gap-2 text-xs md:text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-base md:text-lg leading-none">✓</span> Profile Evaluation & Screening</div>
+                            <div class="flex items-start gap-2 text-xs md:text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-base md:text-lg leading-none">✓</span> Scholarship & Grant Matching</div>
+                            <div class="flex items-start gap-2 text-xs md:text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-base md:text-lg leading-none">✓</span> SOP & Recommendation Guidance</div>
+                            <div class="flex items-start gap-2 text-xs md:text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-base md:text-lg leading-none">✓</span> Affordable Course Shortlisting</div>
                         </div>
                     </div>
-                    <div class="bg-surface-container-low p-6 rounded-2xl w-full lg:w-[360px] border border-outline-variant/40 space-y-4">
-                        <h4 class="font-bold text-primary-container text-lg">Connect Regarding Admissions</h4>
-                        <p class="text-xs text-on-surface-variant">Get expert mapping on requirements, age limitations, and tuition fee layouts immediately.</p>
-                        <div class="space-y-2">
-                            <a href="https://wa.me/09018374849?text=I%20am%20interested%20in%20University%20Admissions" target="_blank" class="w-full bg-[#25D366] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 text-sm hover:brightness-105 transition-all shadow-sm">
+                    <div class="bg-surface-container-low p-5 rounded-xl md:rounded-2xl w-full lg:w-[340px] border border-outline-variant/40 flex flex-col justify-between space-y-4 shrink-0">
+                        <div>
+                            <h4 class="font-bold text-primary-container text-base md:text-lg">Connect Regarding Admissions</h4>
+                            <p class="text-xs text-on-surface-variant mt-1.5">Get expert mapping on requirements, age limitations, and tuition fee layouts immediately.</p>
+                        </div>
+                        <div class="space-y-2 pt-2">
+                            <a href="https://wa.me/09018374849?text=I%20am%20interested%20in%20University%20Admissions" target="_blank" class="w-full bg-[#25D366] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 text-xs md:text-sm hover:brightness-105 transition-all shadow-sm">
                                 <span class="material-symbols-outlined text-[18px]">chat</span> WhatsApp Admissions Expert
                             </a>
-                            <a href="tel:09018374849" class="w-full border border-primary-container text-primary-container text-center py-3 px-4 rounded-xl font-bold block text-sm hover:bg-surface-container transition-all">
+                            <a href="tel:09018374849" class="w-full border border-primary-container text-primary-container text-center py-3 px-4 rounded-xl font-bold block text-xs md:text-sm hover:bg-surface-container transition-all">
                                 Call for Free Profile Intake
                             </a>
                         </div>
@@ -313,27 +316,29 @@
                 </div>
             </div>
 
-            <div id="visa-tab" class="service-content-panel hidden space-y-8">
-                <div class="flex flex-col lg:flex-row gap-8 items-center">
-                    <div class="space-y-4 flex-1">
-                        <div class="inline-block bg-surface-container text-primary-container font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-md">High-Approval Strategies</div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-primary-container">Student &amp; Professional Work Visas</h3>
-                        <p class="text-on-surface-variant leading-relaxed">No over-promises, no hidden costs. Our process is transparent and has historically proven successful even for students facing age gap concerns or prior rejections elsewhere. We meticulously build your immigration file.</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                            <div class="flex items-center gap-2 text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-lg">✓</span> Complete Documentation Check</div>
-                            <div class="flex items-center gap-2 text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-lg">✓</span> Financial &amp; Fund Flow Structure</div>
-                            <div class="flex items-center gap-2 text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-lg">✓</span> Mock Interview Guidance Sets</div>
-                            <div class="flex items-center gap-2 text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-lg">✓</span> Error-free Application Filing</div>
+            <div id="visa-tab" class="service-content-panel hidden space-y-6 md:space-y-8">
+                <div class="flex flex-col lg:flex-row gap-6 md:gap-8 items-stretch">
+                    <div class="space-y-4 flex-1 flex flex-col justify-center">
+                        <div class="self-start bg-surface-container text-primary-container font-bold text-[10px] md:text-xs uppercase tracking-widest px-3 py-1 rounded-md">High-Approval Strategies</div>
+                        <h3 class="text-xl md:text-3xl font-bold text-primary-container leading-tight">Student & Professional Work Visas</h3>
+                        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">No over-promises, no hidden costs. Our process is transparent and has historically proven successful even for students facing age gap concerns or prior rejections elsewhere. We meticulously build your immigration file.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+                            <div class="flex items-start gap-2 text-xs md:text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-base md:text-lg leading-none">✓</span> Complete Documentation Check</div>
+                            <div class="flex items-start gap-2 text-xs md:text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-base md:text-lg leading-none">✓</span> Financial & Fund Flow Structure</div>
+                            <div class="flex items-start gap-2 text-xs md:text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-base md:text-lg leading-none">✓</span> Mock Interview Guidance Sets</div>
+                            <div class="flex items-start gap-2 text-xs md:text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-base md:text-lg leading-none">✓</span> Error-free Application Filing</div>
                         </div>
                     </div>
-                    <div class="bg-surface-container-low p-6 rounded-2xl w-full lg:w-[360px] border border-outline-variant/40 space-y-4">
-                        <h4 class="font-bold text-primary-container text-lg">Connect Regarding Visas</h4>
-                        <p class="text-xs text-on-surface-variant">Fast tracking submission files without unnecessary hurdles or extra premium charges.</p>
-                        <div class="space-y-2">
-                            <a href="https://wa.me/09018374849?text=I%20am%20interested%20in%20Visa%20Assistance" target="_blank" class="w-full bg-[#25D366] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 text-sm hover:brightness-105 transition-all shadow-sm">
+                    <div class="bg-surface-container-low p-5 rounded-xl md:rounded-2xl w-full lg:w-[340px] border border-outline-variant/40 flex flex-col justify-between space-y-4 shrink-0">
+                        <div>
+                            <h4 class="font-bold text-primary-container text-base md:text-lg">Connect Regarding Visas</h4>
+                            <p class="text-xs text-on-surface-variant mt-1.5">Fast tracking submission files without unnecessary hurdles or extra premium charges.</p>
+                        </div>
+                        <div class="space-y-2 pt-2">
+                            <a href="https://wa.me/09018374849?text=I%20am%20interested%20in%20Visa%20Assistance" target="_blank" class="w-full bg-[#25D366] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 text-xs md:text-sm hover:brightness-105 transition-all shadow-sm">
                                 <span class="material-symbols-outlined text-[18px]">chat</span> WhatsApp Visa Expert
                             </a>
-                            <a href="tel:09018374849" class="w-full border border-primary-container text-primary-container text-center py-3 px-4 rounded-xl font-bold block text-sm hover:bg-surface-container transition-all">
+                            <a href="tel:09018374849" class="w-full border border-primary-container text-primary-container text-center py-3 px-4 rounded-xl font-bold block text-xs md:text-sm hover:bg-surface-container transition-all">
                                 Call for Visa File Evaluation
                             </a>
                         </div>
@@ -341,27 +346,29 @@
                 </div>
             </div>
 
-            <div id="travel-tab" class="service-content-panel hidden space-y-8">
-                <div class="flex flex-col lg:flex-row gap-8 items-center">
-                    <div class="space-y-4 flex-1">
-                        <div class="inline-block bg-surface-container text-primary-container font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-md">Post-Approval Placement</div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-primary-container">Pre-Departure &amp; Landing Logistics</h3>
-                        <p class="text-on-surface-variant leading-relaxed">Our dedication doesn't terminate with an approval stamp. We stay fully connected to ensure you align seamlessly with accommodation booking, student currency networks, and affordable transit ticketing.</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                            <div class="flex items-center gap-2 text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-lg">✓</span> Affordable Flight Route Mapping</div>
-                            <div class="flex items-center gap-2 text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-lg">✓</span> Safe Foreign Exchange Layout</div>
-                            <div class="flex items-center gap-2 text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-lg">✓</span> Post-Arrival Airport Transit</div>
-                            <div class="flex items-center gap-2 text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-lg">✓</span> Initial Accommodation Support</div>
+            <div id="travel-tab" class="service-content-panel hidden space-y-6 md:space-y-8">
+                <div class="flex flex-col lg:flex-row gap-6 md:gap-8 items-stretch">
+                    <div class="space-y-4 flex-1 flex flex-col justify-center">
+                        <div class="self-start bg-surface-container text-primary-container font-bold text-[10px] md:text-xs uppercase tracking-widest px-3 py-1 rounded-md">Post-Approval Placement</div>
+                        <h3 class="text-xl md:text-3xl font-bold text-primary-container leading-tight">Pre-Departure & Landing Logistics</h3>
+                        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Our dedication doesn't terminate with an approval stamp. We stay fully connected to ensure you align seamlessly with accommodation booking, student currency networks, and affordable transit ticketing.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+                            <div class="flex items-start gap-2 text-xs md:text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-base md:text-lg leading-none">✓</span> Affordable Flight Route Mapping</div>
+                            <div class="flex items-start gap-2 text-xs md:text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-base md:text-lg leading-none">✓</span> Safe Foreign Exchange Layout</div>
+                            <div class="flex items-start gap-2 text-xs md:text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-base md:text-lg leading-none">✓</span> Post-Arrival Airport Transit</div>
+                            <div class="flex items-start gap-2 text-xs md:text-sm font-semibold text-on-surface"><span class="text-secondary font-bold text-base md:text-lg leading-none">✓</span> Initial Accommodation Support</div>
                         </div>
                     </div>
-                    <div class="bg-surface-container-low p-6 rounded-2xl w-full lg:w-[360px] border border-outline-variant/40 space-y-4">
-                        <h4 class="font-bold text-primary-container text-lg">Connect Regarding Travel Support</h4>
-                        <p class="text-xs text-on-surface-variant">Ensuring your absolute physical comfort and smooth settling within foreign regions.</p>
-                        <div class="space-y-2">
-                            <a href="https://wa.me/09018374849?text=I%20am%20interested%20in%20Travel%20Assistance" target="_blank" class="w-full bg-[#25D366] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 text-sm hover:brightness-105 transition-all shadow-sm">
+                    <div class="bg-surface-container-low p-5 rounded-xl md:rounded-2xl w-full lg:w-[340px] border border-outline-variant/40 flex flex-col justify-between space-y-4 shrink-0">
+                        <div>
+                            <h4 class="font-bold text-primary-container text-base md:text-lg">Connect Regarding Travel Support</h4>
+                            <p class="text-xs text-on-surface-variant mt-1.5">Ensuring your absolute physical comfort and smooth settling within foreign regions.</p>
+                        </div>
+                        <div class="space-y-2 pt-2">
+                            <a href="https://wa.me/09018374849?text=I%20am%20interested%20in%20Travel%20Assistance" target="_blank" class="w-full bg-[#25D366] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 text-xs md:text-sm hover:brightness-105 transition-all shadow-sm">
                                 <span class="material-symbols-outlined text-[18px]">chat</span> WhatsApp Travel Helpdesk
                             </a>
-                            <a href="tel:09018374849" class="w-full border border-primary-container text-primary-container text-center py-3 px-4 rounded-xl font-bold block text-sm hover:bg-surface-container transition-all">
+                            <a href="tel:09018374849" class="w-full border border-primary-container text-primary-container text-center py-3 px-4 rounded-xl font-bold block text-xs md:text-sm hover:bg-surface-container transition-all">
                                 Call for Pre-Departure Briefing
                             </a>
                         </div>
@@ -372,23 +379,23 @@
         </div>
     </section>
 
-    <section id="reviews" class="bg-surface-container-low py-20 border-y border-outline-variant/40">
+    <section id="reviews" class="bg-surface-container-low py-16 md:py-20 border-y border-outline-variant/40">
         <div class="px-margin-mobile max-w-container-max mx-auto">
-            <div class="text-center mb-14">
+            <div class="text-center mb-10 md:mb-14">
                 <div class="inline-flex justify-center items-center gap-1.5 text-secondary-container mb-2">
-                    <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                    <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                    <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                    <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                    <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-[22px] md:text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-[22px] md:text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-[22px] md:text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-[22px] md:text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-[22px] md:text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
                 </div>
-                <h2 class="font-headline-md text-3xl md:text-4xl font-bold text-on-surface mb-3">Verified Google Business Reviews</h2>
-                <p class="text-on-surface-variant max-w-2xl mx-auto text-sm md:text-base">Read unedited transparent testimonials from regional students in Jammu and Kashmir who realized their global dreams with us.</p>
+                <h2 class="text-2xl md:text-4xl font-bold text-on-surface mb-3">Verified Google Business Reviews</h2>
+                <p class="text-on-surface-variant max-w-2xl mx-auto text-sm md:text-base px-2">Read unedited transparent testimonials from regional students in Jammu and Kashmir who realized their global dreams with us.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/60 flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-outline-variant/60 flex flex-col justify-between hover:shadow-md transition-shadow">
                     <div>
                         <div class="flex justify-between items-start mb-2">
                             <div>
@@ -412,7 +419,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/60 flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-outline-variant/60 flex flex-col justify-between hover:shadow-md transition-shadow">
                     <div>
                         <div class="flex justify-between items-start mb-2">
                             <div>
@@ -432,7 +439,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/60 flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-outline-variant/60 flex flex-col justify-between hover:shadow-md transition-shadow">
                     <div>
                         <div class="flex justify-between items-start mb-2">
                             <div>
@@ -456,7 +463,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/60 flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-outline-variant/60 flex flex-col justify-between hover:shadow-md transition-shadow">
                     <div>
                         <div class="flex justify-between items-start mb-2">
                             <div>
@@ -476,7 +483,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/60 flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-outline-variant/60 flex flex-col justify-between hover:shadow-md transition-shadow">
                     <div>
                         <div class="flex justify-between items-start mb-2">
                             <div>
@@ -496,7 +503,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/60 flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-outline-variant/60 flex flex-col justify-between hover:shadow-md transition-shadow">
                     <div>
                         <div class="flex justify-between items-start mb-2">
                             <div>
@@ -518,107 +525,104 @@
 
             </div>
             
-            <div class="text-center mt-10">
-                <a href="https://wa.me/09018374849" target="_blank" class="inline-flex items-center gap-2 bg-primary-container text-white px-6 py-3 rounded-xl font-bold hover:bg-opacity-90 transition-all shadow-sm">
-                    Become Our Next Success Story <span class="material-symbols-outlined">arrow_forward</span>
+            <div class="text-center mt-10 px-2">
+                <a href="https://wa.me/09018374849" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary-container text-white px-6 py-3.5 rounded-xl font-bold hover:bg-opacity-90 transition-all shadow-sm text-sm">
+                    Become Our Next Success Story <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="px-margin-mobile py-20 max-w-container-max mx-auto">
-        <div class="bg-surface-container rounded-3xl overflow-hidden shadow-xl border border-outline-variant flex flex-col lg:flex-row">
-            <div class="p-8 md:p-12 w-full lg:w-1/2 flex flex-col justify-center space-y-6">
+    <section id="contact" class="px-margin-mobile py-16 md:py-20 max-w-container-max mx-auto">
+        <div class="bg-surface-container rounded-2xl md:rounded-3xl overflow-hidden shadow-xl border border-outline-variant flex flex-col lg:flex-row">
+            <div class="p-6 md:p-12 w-full lg:w-1/2 flex flex-col justify-center space-y-6">
                 <div>
-                    <h2 class="font-headline-md text-3xl font-bold mb-3 text-on-surface">Ready to Plan Your Career?</h2>
-                    <p class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed">Visit our consultation hub in Jammu for a personalized, honest roadmap evaluation. Walk away with clean solutions.</p>
+                    <h2 class="text-2xl md:text-3xl font-bold mb-3 text-on-surface">Ready to Plan Your Career?</h2>
+                    <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Visit our consultation hub in Jammu for a personalized, honest roadmap evaluation. Walk away with clean solutions.</p>
                 </div>
                 
-                <div class="space-y-4">
+                <div class="space-y-3">
                     <a href="tel:09018374849" class="flex items-center gap-4 group p-3 bg-white rounded-xl border border-outline-variant/40 hover:border-primary-container transition-colors">
-                        <div class="w-12 h-12 bg-primary-container rounded-xl flex items-center justify-center text-white shadow-sm">
+                        <div class="w-12 h-12 bg-primary-container rounded-xl flex items-center justify-center text-white shadow-sm shrink-0">
                             <span class="material-symbols-outlined">phone</span>
                         </div>
-                        <div>
+                        <div class="min-w-0">
                             <p class="text-xs text-on-surface-variant font-medium">Direct Telephone Support</p>
-                            <p class="text-lg font-bold text-primary-container">09018374849</p>
+                            <p class="text-base md:text-lg font-bold text-primary-container truncate">09018374849</p>
                         </div>
                     </a>
                     
                     <a href="https://wa.me/09018374849" target="_blank" class="flex items-center gap-4 group p-3 bg-white rounded-xl border border-outline-variant/40 hover:border-[#25D366] transition-colors">
-                        <div class="w-12 h-12 bg-[#25D366] rounded-xl flex items-center justify-center text-white shadow-sm">
+                        <div class="w-12 h-12 bg-[#25D366] rounded-xl flex items-center justify-center text-white shadow-sm shrink-0">
                             <span class="material-symbols-outlined">chat</span>
                         </div>
-                        <div>
+                        <div class="min-w-0">
                             <p class="text-xs text-on-surface-variant font-medium">Instant Digital Helpline</p>
-                            <p class="text-lg font-bold text-primary-container">WhatsApp Response Active</p>
+                            <p class="text-base md:text-lg font-bold text-primary-container truncate">WhatsApp Response Active</p>
                         </div>
                     </a>
                 </div>
             </div>
             
-            <div class="w-full lg:w-1/2 min-h-[350px] relative bg-surface-container-high rounded-2xl overflow-hidden shadow-inner group">
-    <iframe 
-        src="https://maps.google.com/maps?q=Abroad%20Explorers,%2054-C,%20Sector%207,%20Roop%20Nagar,%20Jammu,%20Jammu%20and%20Kashmir%20180013&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-        width="100%" 
-        height="100%" 
-        style="border:0; position:absolute; top:0; left:0; width:100%; height:100%;" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade"
-        class="grayscale contrast-125 opacity-85 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100">
-    </iframe>
-    
-    <div class="absolute bottom-4 left-4 right-4 bg-primary-container/95 backdrop-blur-md px-5 py-3.5 rounded-xl shadow-xl border border-outline-variant/30 text-white text-center transform transition-transform duration-300 group-hover:scale-[1.02]">
-        <p class="text-xs text-secondary-container font-bold tracking-widest uppercase mb-0.5 flex items-center justify-center gap-1">
-            <span class="material-symbols-outlined text-[14px]">location_on</span> Office Headquarters
-        </p>
-        <p class="text-sm font-semibold tracking-wide">54-C, Sector 7, Roop Nagar, Jammu, J&K 180013</p>
-    </div>
-</div>
+            <div class="w-full lg:w-1/2 h-[300px] sm:h-[350px] md:h-auto min-h-[300px] relative bg-surface-container-high group">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3355.231018991448!2d74.8368565!3d32.759495100000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391e81f7cb8527a7%3A0xe7a50fe2ba6bd5b6!2sAbroad%20Explorers!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0; position:absolute; top:0; left:0; width:100%; height:100%;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    class="grayscale contrast-125 opacity-85 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100">
+                </iframe>
+                <div class="absolute bottom-3 left-3 right-3 bg-primary-container/95 backdrop-blur-md px-4 py-2.5 rounded-xl shadow-lg border border-outline-variant text-white text-center">
+                    <p class="text-[10px] text-secondary-container font-bold tracking-wider uppercase">Office Headquarters</p>
+                    <p class="text-xs font-semibold mt-0.5">54-C, Sector 7, Roop Nagar, Jammu, J&K 180013</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="text-center py-10 px-margin-mobile bg-white border-t border-outline-variant/40">
-        <h3 class="font-label-md text-xs uppercase tracking-widest text-on-surface-variant mb-4">Follow Our International Updates</h3>
+    <section class="text-center py-8 px-margin-mobile bg-white border-t border-outline-variant/40">
+        <h3 class="font-label-md text-xs uppercase tracking-widest text-on-surface-variant mb-3">Follow Our International Updates</h3>
         <a class="inline-flex items-center gap-3 text-primary-container hover:text-secondary-container transition-colors group bg-surface-container px-5 py-2.5 rounded-full border border-outline-variant/40" href="https://instagram.com/abroad_explorers" target="_blank">
-            <svg class="w-5 h-5 fill-current transition-transform group-hover:scale-110" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
-            <span class="text-sm font-bold tracking-tight">@abroad_explorers</span>
+            <svg class="w-4 h-4 md:w-5 md:h-5 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+            <span class="text-xs md:text-sm font-bold tracking-tight">@abroad_explorers</span>
         </a>
     </section>
 </main>
 
-<footer class="w-full py-14 px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-3 gap-10 max-w-container-max mx-auto bg-primary-container border-t border-outline/20">
-    <div class="space-y-4">
+<footer class="w-full pt-12 pb-24 md:pb-12 px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-3 gap-8 max-w-container-max mx-auto bg-primary-container border-t border-outline/20">
+    <div class="space-y-3">
         <div class="flex items-center gap-2">
-            <svg class="h-8 w-auto" viewBox="0 0 54 60" xmlns="http://www.w3.org/2000/svg">
+            <svg class="h-7 w-auto" viewBox="0 0 54 60" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="27" cy="30" r="22" fill="#ffffff"/>
                 <path d="M27 15 L39 40 L15 40 Z" fill="#131b2e"/>
             </svg>
-            <span class="font-bold text-xl font-['Montserrat'] tracking-tight text-white">Abroad Explorers</span>
+            <span class="font-bold text-lg font-['Montserrat'] tracking-tight text-white">Abroad Explorers</span>
         </div>
-        <p class="text-xs text-outline-variant leading-relaxed max-w-xs">Premium Visa &amp; Global University admissions consulting firm centered inside Jammu. Bringing clean, student-first transparent pricing.</p>
+        <p class="text-xs text-outline-variant leading-relaxed max-w-xs">Premium Visa & Global University admissions consulting firm centered inside Jammu. Bringing clean, student-first transparent pricing.</p>
     </div>
-    <div class="flex flex-col gap-3">
+    <div class="flex flex-col gap-2.5">
         <h4 class="text-xs text-white font-bold uppercase tracking-widest border-l-2 border-secondary-container pl-2">Services Guide</h4>
         <a class="text-xs text-outline-variant hover:text-secondary-container transition-colors" href="#services" onclick="switchServiceTab('edu-tab')">University Admissions Mapping</a>
-        <a class="text-xs text-outline-variant hover:text-secondary-container transition-colors" href="#services" onclick="switchServiceTab('visa-tab')">Student &amp; Work Visa Filing</a>
-        <a class="text-xs text-outline-variant hover:text-secondary-container transition-colors" href="#services" onclick="switchServiceTab('travel-tab')">Pre-Landing &amp; Accommodation Support</a>
+        <a class="text-xs text-outline-variant hover:text-secondary-container transition-colors" href="#services" onclick="switchServiceTab('visa-tab')">Student & Work Visa Filing</a>
+        <a class="text-xs text-outline-variant hover:text-secondary-container transition-colors" href="#services" onclick="switchServiceTab('travel-tab')">Pre-Landing & Accommodation Support</a>
     </div>
-    <div class="space-y-3 text-xs text-outline-variant">
+    <div class="space-y-2 text-xs text-outline-variant">
         <h4 class="text-xs text-white font-bold uppercase tracking-widest border-l-2 border-secondary-container pl-2">Reach Office</h4>
         <p class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-secondary-container">call</span> 09018374849</p>
-        <p class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-secondary-container">location_on</span> Jammu, J&amp;K, India</p>
-        <p class="text-[11px] text-outline pt-4">© 2026 Abroad Explorers. Developed with absolute precision.</p>
+        <p class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-secondary-container">location_on</span> Jammu, J&K, India</p>
+        <p class="text-[11px] text-outline pt-3">© 2026 Abroad Explorers. Developed with absolute precision.</p>
     </div>
 </footer>
 
-<nav class="fixed bottom-0 left-0 w-full z-40 flex justify-around items-center px-4 py-3.5 md:hidden bg-white border-t border-outline-variant/60 shadow-[0_-6px_20px_rgba(0,0,0,0.1)] rounded-t-2xl">
-    <a class="flex flex-1 justify-center items-center bg-[#25D366] text-white rounded-xl py-3.5 font-bold gap-2 hover:brightness-105 shadow-md active:scale-95 transition-all mr-2 text-sm" href="https://wa.me/09018374849" target="_blank">
+<nav class="fixed bottom-0 left-0 w-full z-40 flex justify-around items-center px-4 py-3 md:hidden bg-white border-t border-outline-variant/60 shadow-[0_-6px_20px_rgba(0,0,0,0.1)] rounded-t-2xl">
+    <a class="flex flex-1 justify-center items-center bg-[#25D366] text-white rounded-xl py-3 font-bold gap-1.5 hover:brightness-105 shadow-md active:scale-95 transition-all mr-1.5 text-xs" href="https://wa.me/09018374849" target="_blank">
         <span class="material-symbols-outlined text-[18px]">chat</span>
         <span>WhatsApp</span>
     </a>
-    <a class="flex flex-1 justify-center items-center bg-primary-container text-white rounded-xl py-3.5 font-bold gap-2 hover:brightness-105 shadow-md active:scale-95 transition-all ml-2 text-sm" href="tel:09018374849">
+    <a class="flex flex-1 justify-center items-center bg-primary-container text-white rounded-xl py-3 font-bold gap-1.5 hover:brightness-105 shadow-md active:scale-95 transition-all ml-1.5 text-xs" href="tel:09018374849">
         <span class="material-symbols-outlined text-[18px]">call</span>
         <span>Call Now</span>
     </a>
@@ -637,13 +641,13 @@
         
         // Reset navigation links tab classes
         document.querySelectorAll('.service-tab-btn').forEach(btn => {
-            btn.className = "service-tab-btn flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold transition-all text-sm md:text-base text-on-surface-variant hover:bg-surface-container-high";
+            btn.className = "service-tab-btn w-full sm:flex-1 flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-bold transition-all text-xs md:text-base text-on-surface-variant hover:bg-surface-container-high";
         });
         
         // Highlight active clicked button mapping configuration
         const activeBtn = document.getElementById('btn-' + tabId);
         if(activeBtn) {
-            activeBtn.className = "service-tab-btn flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold transition-all text-sm md:text-base bg-primary-container text-white shadow-md";
+            activeBtn.className = "service-tab-btn w-full sm:flex-1 flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-bold transition-all text-xs md:text-base bg-primary-container text-white shadow-md";
         }
     }
 
